@@ -256,7 +256,7 @@ export default function ProfileScreen({ navigation }) {
               disabled={calculating}
             >
               {calculating
-                ? <ActivityIndicator color={COLORS.accent} />
+                ? <ActivityIndicator color="#000" />
                 : <Text style={styles.recalcText}>Recalculate Targets</Text>
               }
             </TouchableOpacity>

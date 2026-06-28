@@ -13,6 +13,10 @@ function getMondayOfWeek(dateStr) {
   return d;
 }
 
+function toLocalStr(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 function getWeekDays(weekOffset) {
   const today = getTodayString();
   const monday = getMondayOfWeek(today);
@@ -20,7 +24,7 @@ function getWeekDays(weekOffset) {
   return Array.from({ length: 7 }, (_, i) => {
     const d = new Date(monday);
     d.setDate(monday.getDate() + i);
-    return d.toISOString().split('T')[0];
+    return toLocalStr(d);
   });
 }
 

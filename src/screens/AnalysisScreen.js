@@ -71,7 +71,7 @@ export default function AnalysisScreen({ route, navigation }) {
         fat: parseFloat(fat) || 0,
         servingSize: result.servingSize,
       });
-      navigation.navigate('MainTabs', { screen: 'Home' });
+      navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] });
     } catch (e) {
       Alert.alert('Error', 'Failed to save entry. Please try again.');
     } finally {
@@ -82,7 +82,7 @@ export default function AnalysisScreen({ route, navigation }) {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <TouchableOpacity onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] })} style={styles.backBtn}>
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Analysis</Text>
@@ -141,7 +141,7 @@ export default function AnalysisScreen({ route, navigation }) {
               {saving ? <ActivityIndicator color="#000" /> : <Text style={styles.logBtnText}>Log This Meal</Text>}
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.discardBtn} onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={styles.discardBtn} onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] })}>
               <Text style={styles.discardText}>Discard</Text>
             </TouchableOpacity>
           </>
