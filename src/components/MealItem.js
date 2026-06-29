@@ -1,10 +1,9 @@
-import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS, FONTS } from '../constants/theme';
 
-export default function MealItem({ entry, onDelete }) {
+export default function MealItem({ entry, onDelete, onPress }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={onPress ? 0.7 : 1}>
       {entry.imageUri ? (
         <Image source={{ uri: entry.imageUri }} style={styles.image} />
       ) : (
@@ -27,7 +26,7 @@ export default function MealItem({ entry, onDelete }) {
           </TouchableOpacity>
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

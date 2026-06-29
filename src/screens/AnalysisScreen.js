@@ -17,6 +17,7 @@ export default function AnalysisScreen({ route, navigation }) {
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
 
+  const [foodName, setFoodName] = useState('');
   const [calories, setCalories] = useState('');
   const [protein, setProtein] = useState('');
   const [carbs, setCarbs] = useState('');
@@ -30,6 +31,7 @@ export default function AnalysisScreen({ route, navigation }) {
       setError(null);
       const data = await analyzeFoodImage(imageUri);
       setResult(data);
+      setFoodName(data.foodName ?? '');
       setCalories(String(data.calories ?? ''));
       setProtein(String(data.protein ?? ''));
       setCarbs(String(data.carbs ?? ''));
@@ -64,7 +66,7 @@ export default function AnalysisScreen({ route, navigation }) {
         date: selectedDate,
         timestamp: new Date().toISOString(),
         imageUri: persistentUri,
-        foodName: result.foodName,
+        foodName: foodName || result.foodName,
         calories: parseFloat(calories) || 0,
         protein: parseFloat(protein) || 0,
         carbs: parseFloat(carbs) || 0,
@@ -112,7 +114,13 @@ export default function AnalysisScreen({ route, navigation }) {
         {result && !loading && (
           <>
             <View style={styles.resultCard}>
-              <Text style={styles.foodName}>{result.foodName}</Text>
+              <TextInput
+                style={styles.foodName}
+                value={foodName}
+                onChangeText={setFoodName}
+                selectTextOnFocus
+                placeholderTextColor={COLORS.textTertiary}
+              />
               {result.servingSize && <Text style={styles.serving}>{result.servingSize}</Text>}
 
               <View style={styles.calorieRow}>
@@ -193,7 +201,7 @@ const styles = StyleSheet.create({
   retryBtn: { borderWidth: 1, borderColor: COLORS.accent, borderRadius: 12, paddingHorizontal: 24, paddingVertical: 10 },
   retryText: { color: COLORS.accent, fontWeight: '600' },
   resultCard: { backgroundColor: COLORS.card, borderRadius: 20, padding: 20, marginBottom: 16 },
-  foodName: { fontSize: FONTS.title, fontWeight: '700', color: COLORS.textPrimary, marginBottom: 4 },
+  foodName: { fontSize: FONTS.title, fontWeight: '700', color: COLORS.textPrimary, marginBottom: 4, outlineWidth: 0, backgroundColor: 'transparent', padding: 0 },
   serving: { fontSize: FONTS.small, color: COLORS.textSecondary, marginBottom: 16 },
   calorieRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
   calorieNum: {

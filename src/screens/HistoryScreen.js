@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { View, Text, SectionList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import MealItem from '../components/MealItem';
 import WeightLogItem from '../components/WeightLogItem';
 import { getAllFoodLogs, getWeightLogs, deleteFoodEntry, getTodayString } from '../storage/storageService';
@@ -40,6 +40,7 @@ function groupByDate(foodLogs, weightLogs) {
 }
 
 export default function HistoryScreen() {
+  const navigation = useNavigation();
   const [sections, setSections] = useState([]);
 
   useFocusEffect(useCallback(() => { loadLogs(); }, []));
@@ -82,7 +83,7 @@ export default function HistoryScreen() {
         renderItem={({ item }) =>
           item._type === 'weight'
             ? <WeightLogItem entry={item} />
-            : <MealItem entry={item} onDelete={handleDelete} />
+            : <MealItem entry={item} onDelete={handleDelete} onPress={() => navigation.navigate('FoodDetail', { entry: item })} />
         }
         ListHeaderComponent={<Text style={styles.pageTitle}>History</Text>}
       />

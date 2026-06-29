@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { View, Text, ScrollView, StyleSheet, Modal, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import CalorieRing from '../components/CalorieRing';
 import MacroBar from '../components/MacroBar';
 import MealItem from '../components/MealItem';
@@ -16,6 +16,7 @@ import {
 import { COLORS, FONTS } from '../constants/theme';
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   const { selectedDate, setSelectedDate } = useDate();
   const [weekOffset, setWeekOffset] = useState(0);
   const [logs, setLogs] = useState([]);
@@ -157,7 +158,7 @@ export default function HomeScreen() {
           </View>
         ) : (
           logs.map(entry => (
-            <MealItem key={entry.id} entry={entry} onDelete={handleDelete} />
+            <MealItem key={entry.id} entry={entry} onDelete={handleDelete} onPress={() => navigation.navigate('FoodDetail', { entry })} />
           ))
         )}
       </ScrollView>

@@ -10,6 +10,7 @@ import CameraScreen from '../screens/CameraScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AnalysisScreen from '../screens/AnalysisScreen';
+import FoodDetailScreen from '../screens/FoodDetailScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import { hasCompletedOnboarding } from '../storage/storageService';
 import { COLORS } from '../constants/theme';
@@ -75,6 +76,7 @@ export default function AppNavigator() {
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
           <Stack.Screen name="MainTabs" component={MainTabs} />
           <Stack.Screen name="Analysis" component={AnalysisScreen} options={{ presentation: 'modal' }} />
+          <Stack.Screen name="FoodDetail" component={FoodDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </DateProvider>
